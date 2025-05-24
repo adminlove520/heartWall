@@ -26,10 +26,7 @@ document.getElementById('canvas_sakura').style.zIndex = '10000';
 	
 	function addImg(n){
 		for(var i=1;i<=n;i++){
-			// 从环境变量获取OSS配置
-			var bucketName = process.env.OSS_BUCKET_NAME || 'your-bucket-name';
-			var region = process.env.OSS_REGION || 'oss-cn-hangzhou';
-			var img="<img src='https://"+bucketName+"."+region+".aliyuncs.com/photo"+i+".jpg'>";
+			var img="<img src='img/photo"+i+".jpg'>";
 			$(".pic").append(img);
 		}
 	}
