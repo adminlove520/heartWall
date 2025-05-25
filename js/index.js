@@ -1,41 +1,9 @@
 $(function(){
-	// 音乐播放器管理类
-	class MusicPlayer {
-		constructor(songs) {
-			this.songs = songs;
-			this.currentIndex = 0;
-			this.audio = new Audio();
-			this.hasPlayed = false;
-			this.setupAudio();
-		}
-
-		setupAudio() {
-			this.audio.src = this.songs[this.currentIndex];
-			this.audio.addEventListener('ended', () => this.playNext());
-		}
-
-		play() {
-			if(!this.hasPlayed) {
-				this.audio.play().catch(e => console.log('播放失败:', e));
-				this.hasPlayed = true;
-			}
-		}
-
-		playNext() {
-			this.currentIndex = (this.currentIndex + 1) % this.songs.length;
-			this.audio.src = this.songs[this.currentIndex];
-			this.audio.play().catch(e => console.log('播放失败:', e));
-		}
-	}
-
-	// 初始化音乐播放器
-	// 暂时使用一个音乐列表实现
-	//TODO 动态获取音乐列表|增加音乐管理功能|增加音乐播放控制|半透明显示歌词
-	var bgMusic = new MusicPlayer([
-		'source/lover.mp3',
-		'source/lullaboy - shortcut to heaven (V0).mp3',
-		'source/only for you.mp3'
-	]);
+	//添加背景音乐
+	// 自动播放背景音乐有限制，所以当用户点击图片，大图预览（自动轮播）时播放背景音乐
+	var bgMusic = new Audio('source/lover.mp3');
+	bgMusic.loop = true;
+	var hasPlayed = false;
 // 确保樱花特效canvas的z-index高于大图预览层
 document.getElementById('canvas_sakura').style.zIndex = '10000';
 	//添加17个img
