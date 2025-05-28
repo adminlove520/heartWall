@@ -5,3 +5,7 @@
 [build.environment]
   # 启用Netlify内置的图片优化功能
   NETLIFY_IMAGES = "true"
+
+[images]
+  # 配置本地图片路径优化
+  directory = "static/img"
