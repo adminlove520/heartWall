@@ -95,11 +95,11 @@ $("img").click(function(){
 		var imgWidth = this.width;
 		var imgHeight = this.height;
 		
-		// 计算缩放比例
-		// bug尚未解决|该死的显示问题
+		// 计算缩放比例 - 移动端优化
+		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		var scale = Math.min(
-			(winWidth * 0.9) / imgWidth,
-			(winHeight * 0.9) / imgHeight,
+			(winWidth * (isMobile ? 0.95 : 0.9)) / imgWidth,
+			(winHeight * (isMobile ? 0.95 : 0.9)) / imgHeight,
 			1 // 不超过原始尺寸
 		);
 		
@@ -107,8 +107,14 @@ $("img").click(function(){
 			'width': imgWidth * scale,
 			'height': imgHeight * scale,
 			'max-width': 'none',
-			'max-height': 'none'
+			'max-height': 'none',
+			'touch-action': 'none' // 防止移动端缩放干扰
 		});
+		
+		// 移动端添加点击关闭提示
+		if(isMobile) {
+			previewLayer.append('<div class="close-hint">点击任意位置关闭</div>');
+		}
 		previewLayer.fadeIn();
 	};
 	img.src = imgSrc;
@@ -122,5 +128,7 @@ $("img").click(function(){
 previewLayer.click(function(){
 	$(this).fadeOut();
 	stopSlide();
+	// 移除移动端提示
+	$(this).find('.close-hint').remove();
 });
 })
