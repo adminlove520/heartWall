@@ -116,12 +116,27 @@ $("img").click(function(){
 			1 // 不超过原始尺寸
 		);
 		
+		// 计算居中位置 - 移动端优化
+		var leftPos = Math.round((winWidth - imgWidth * scale) / 2);
+		var topPos = Math.round((winHeight - imgHeight * scale) / 2);
+		// 添加viewport meta标签检测，确保移动端正确计算
+		if(isMobile && !document.querySelector('meta[name="viewport"]')) {
+			var meta = document.createElement('meta');
+			meta.name = "viewport";
+			meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+			document.getElementsByTagName('head')[0].appendChild(meta);
+		}
+		
 		imgElement.css({
 			'width': imgWidth * scale,
 			'height': imgHeight * scale,
 			'max-width': 'none',
 			'max-height': 'none',
-			'touch-action': 'none' // 防止移动端缩放干扰
+			'touch-action': 'none', // 防止移动端缩放干扰
+			'position': 'absolute',
+			'left': '50%',
+			'top': '50%',
+			'transform': 'translate(-50%, -50%) translateZ(0)' // 使用百分比定位和transform确保精确居中
 		});
 		
 		// 移动端添加点击关闭提示
