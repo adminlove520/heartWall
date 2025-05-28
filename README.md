@@ -22,3 +22,6 @@
 - [x] 阿里云oss读取静态资源
 - [x] CDN加速
 - [x] 增加背景音乐循环
+
+## Netlify
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ed1c8c85-90b2-443e-8a19-7ba2482748e2/deploy-status)](https://app.netlify.com/projects/loveyou521/deploys)
