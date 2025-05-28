@@ -9,5 +9,3 @@
 # 配置图片优化选项
 [[plugins]]
   package = "netlify-plugin-image-optim"
-  # 禁用有问题的插件
-  enabled = false
