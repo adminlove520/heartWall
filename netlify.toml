@@ -9,3 +9,4 @@
 [images]
   # 配置本地图片路径优化
   directory = "static/img"
+# 不知道为啥失败
