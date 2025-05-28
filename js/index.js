@@ -1,12 +1,12 @@
 $(function(){
 	//添加背景音乐
 	// 自动播放背景音乐有限制，所以当用户点击图片，大图预览（自动轮播）时播放背景音乐
-	var bgMusic = new Audio('source/lover.mp3');
+	var bgMusic = new Audio('source/only-for-you.mp3');
 	bgMusic.loop = true;
 	var hasPlayed = false;
 // 确保樱花特效canvas的z-index高于大图预览层
 document.getElementById('canvas_sakura').style.zIndex = '10000';
-	//添加17个img
+	//添加50个img
 	addImg(50);
 	var imgLen = $("img").length;
 	var index = Math.floor(imgLen/2);//放置在中间的图片的index
