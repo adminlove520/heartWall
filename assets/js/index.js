@@ -1,9 +1,20 @@
 $(function(){
+	// 检测微信浏览器
+	function isWeixinBrowser() {
+		var ua = navigator.userAgent.toLowerCase();
+		return ua.indexOf('micromessenger') !== -1;
+	}
+	
 	//添加背景音乐
 	// 自动播放背景音乐有限制，所以当用户点击图片，大图预览（自动轮播）时播放背景音乐
-	var bgMusic = new Audio('source/only-for-you.mp3');
+	var bgMusic = new Audio('static/source/only-for-you.mp3');
 	bgMusic.loop = true;
 	var hasPlayed = false;
+	
+	// 微信浏览器特殊处理
+	if(isWeixinBrowser()) {
+		$('body').addClass('weixin-browser');
+	}
 // 确保樱花特效canvas的z-index高于大图预览层
 document.getElementById('canvas_sakura').style.zIndex = '10000';
 	//添加50个img
@@ -26,9 +37,22 @@ document.getElementById('canvas_sakura').style.zIndex = '10000';
 	
 	function addImg(n){
 		for(var i=1;i<=n;i++){
-			var img="<img src='img/photo"+i+".jpg'>";
+			var img="<img data-src='static/img/photo"+i+".jpg' class='lazy'>";
 			$(".pic").append(img);
 		}
+		// 懒加载实现
+		const lazyImages = document.querySelectorAll('img.lazy');
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if(entry.isIntersecting){
+					const img = entry.target;
+					img.src = img.dataset.src;
+					img.classList.remove('lazy');
+					observer.unobserve(img);
+				}
+			});
+		});
+		lazyImages.forEach(img => observer.observe(img));
 	}
 	
 	function mid(){
@@ -113,7 +137,7 @@ $("img").click(function(){
 		
 		// 移动端添加点击关闭提示
 		if(isMobile) {
-			previewLayer.append('<div class="close-hint">点击任意位置关闭</div>');
+			previewLayer.append('<div class="close-hint">点击任意位置关闭~</div>');
 		}
 		previewLayer.fadeIn();
 	};
